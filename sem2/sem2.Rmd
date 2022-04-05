@@ -1,0 +1,98 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# SEM2
+#NUMERIC continua
+```{r}
+class(BD$Estatura..cm.)
+```
+#INTEGER discreta
+```{r}
+class(BD$`CÃ³digo`)
+```
+
+# Formamos un sub archivo, que contenga solo algunas columnas
+```{r}
+subBD <- select(BD,Apellido,Nombre,Ciclo,Edad,Sexo)
+dim(subBD)
+```
+# Ahora escogemos filas que cumplan con alguna condicion especial.
+
+#observaciones -> dim() cantidad
+```{r}
+#subBD2 <- filter(subBD,Edad>20)
+#subBD2 <- filter(subBD,Edad==21)
+subBD2 <- filter(subBD,Edad==18,Ciclo==3,Sexo=="M")
+subBD2
+```
+# Puede eliminarse todas las observaciones (filas) que tienen NA según alguna columna:
+#Se elimina las filas con NA
+```{r}
+
+subBD3 <- filter(subBD,!is.na(Ciclo))
+dim(subBD3)
+dim(subBD)
+```
+# Para obtener los NA's
+#se han perdido 9 observaciones NA's
+```{r}
+ NAs <- filter(subBD,is.na(Edad))
+ NAs
+```
+```{r}
+nb <- filter(subBD,Sexo=="NB")
+nb
+```
+
+
+#Para tener un conteo de los datos de una variable y ver su redacción
+```{r}
+table(subBD$Sexo)
+```
+
+# CAMBIO DE NOMBRE A COLUMNAS
+#### Para cambiar de nombre a variables de un dataFrame
+
+```{r}
+BDR <- rename(BD,periodo=PerÃ.odo,código=`CÃ³digo`,sección=`SecciÃ³n`)
+BDR
+```
+
+# Modificando los datos mal escritos
+#### Eliminar espacios en blanco de datos mal escritos:
+###### espacio en blacno no es NA
+```{r}
+library(stringr)
+BDRS$Sexo <- str_trim(BDR$Sexo,side="both")
+table(BDRS$Sexo)
+```
+
+# Cambiamos el tipo de letra a minúscula para homologar
+#### todos los términos, sin que unos vengan en mayúsculas, otros en minúsculas o en formato de título.
+
+```{r}
+#𝐵𝐷𝑅$𝑆𝑒𝑥𝑜 < − 𝑠𝑡𝑟_𝑡𝑜_𝑙𝑜𝑤𝑒𝑟(𝐵𝐷𝑅$𝑆𝑒𝑥𝑜, 𝑙𝑜𝑐𝑎𝑙𝑒 = "𝑒𝑠")
+#𝑡𝑎𝑏𝑙𝑒(𝐵𝐷𝑅$𝑆𝑒𝑥𝑜)
+BDRS$Sexo <- str_to_lower(BDRS$Sexo,locale = "es")
+table(BDRS$Sexo)
+```
+# Palabras con acentos y sin acentos, con mismo significado, se remueven los acentos.
+
+```{r}
+subBD3$Nombre <-chartr('áéíóúñ','aeioun',subBD3$Nombre)
+table(subBD3$Nombre)
+```
+
+# Modificar los valores de una variable para corregir escritura:
+#### Con transmute se crea nuevas columnas y se elimina la original
+
+```{r}
+library(readr)
+library(plyr)
+library(dplyr)
+Sexomodif <- transmute(BDR,Sexo=case_when(Sexo==''~'no especifica',Sexo=='mm'~'m',Sexo=='nb'~'desconocido',Sexo=='m'~'m',Sexo=='f'~'f'))
+table(Sexomodif)
+```
+

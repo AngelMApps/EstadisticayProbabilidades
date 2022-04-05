@@ -1,0 +1,82 @@
+---
+title: "R Notebook"
+output:
+  html_notebook: default
+  pdf_document: default
+---
+
+holaa como estan?
+
+ASDASD ASDASKDAKSODKA
+
+recuerden que para declarar un vector se pone c(1,2,3,4,etc.) pero aquwi tbm se puede programar
+
+```{r}
+6*5-10/2
+```
+Creare un vector y hallare el promedio de las coordenadas
+```{r}
+calificaciones <- c(18, 15, 0, 10)
+```
+ahora el promedio
+```{r}
+mean(calificaciones)
+```
+Lo quiero redondear:
+
+```{r}
+round(mean((calificaciones)),1)
+```
+
+```{r}
+round(mean((calificaciones)),0)
+```
+OBSERVACION: cuando en una evaluacion se pida dar respuesta con 2 decimales (como ejemplo) solamente la respuesta final se redondea
+
+# Miercoles 30/03
+```{r}
+prueba
+```
+
+```{r}
+table(prueba$ï..Active)
+```
+# tabla de licencias
+## tabla de licencias
+```{r}
+table(prueba$Vehicle_License_Number)
+```
+
+```{r}
+dDiversos <- read.csv("dDiversos.csv")
+```
+
+```{r}
+dDiversos$`Tiempo.de.reacciÃ³n`
+```
+
+```{r}
+mean(as.numeric(dDiversos$`Tiempo.de.reacciÃ³n`),na.rm=TRUE)
+```
+
+```{r}
+is.na(dDiversos$Ciclo)
+```
+```{r}
+barplot(table(dDiversos$Ciclo) )
+```
+
+```{r}
+plot(dDiversos$Ciclo)
+```
+
+
+```{r}
+max(as.numeric(dDiversos$Peso..kg.),na.rm=TRUE)
+```
+
+```{r}
+round(mean(as.numeric(dDiversos$Edad),na.rm=TRUE),0)
+```
+
+

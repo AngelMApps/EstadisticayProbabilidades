@@ -1,0 +1,7 @@
+"0","subBD <- select(BD,Apellido,Nombre,Ciclo,Edad,Sexo)"
+"0","dim(subBD)"
+"1","[1]"
+"1"," 1077"
+"1","    5"
+"1","
+"
